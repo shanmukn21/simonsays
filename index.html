@@ -127,12 +127,12 @@
             } else if (gn === 3) {
                 b.style.backgroundColor = "white";
             }
-            setTimeout(reset, 1000);
+            setTimeout(reset, 300);
         }
         function game() {
             gn = Math.floor(Math.random() * 4);
             a[ai++] = gn;
-            setTimeout(blink, 1000);
+            setTimeout(blink, 300);
         }
         function reset() {
             if (gn === 0) {
@@ -149,7 +149,7 @@
                 smn.style.color = "blue";
             }
             if (ai < ln) {
-                setTimeout(game, 1000);
+                setTimeout(game, 300);
             } else {
                 smn.style.color = "white";
                 //console.log(a);//cheatcode
@@ -160,7 +160,7 @@
                 lvl.innerText = "GAME OVER!";
                 strt.innerText = "start";
                 lvl.style.color = "red";
-                ln=1;
+                ln = 1;
                 a.length = 0;
                 ai = 0;
                 c.length = 0;
@@ -184,23 +184,31 @@
         });
 
         g.addEventListener('click', function () {
-            c[ci++] = 0;
-            check();
+            if (smn.style.color === "white") {
+                c[ci++] = 0;
+                check();
+            }
         });
 
         r.addEventListener('click', function () {
-            c[ci++] = 1;
-            check();
+            if (smn.style.color === "white") {
+                c[ci++] = 1;
+                check();
+            }
         });
 
         y.addEventListener('click', function () {
-            c[ci++] = 2;
-            check();
+            if (smn.style.color === "white") {
+                c[ci++] = 2;
+                check();
+            }
         });
 
         b.addEventListener('click', function () {
-            c[ci++] = 3;
-            check();
+            if (smn.style.color === "white") {
+                c[ci++] = 3;
+                check();
+            }
         });
 
     </script>

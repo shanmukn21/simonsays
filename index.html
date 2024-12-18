@@ -130,6 +130,8 @@
             setTimeout(reset, 300);
         }
         function game() {
+            lvl.style.color = "black";
+            lvl.innerText = `Level ${ln}`;
             gn = Math.floor(Math.random() * 4);
             a[ai++] = gn;
             setTimeout(blink, 300);
@@ -153,7 +155,28 @@
             } else {
                 smn.style.color = "white";
                 //console.log(a);//cheatcode
+                //robot();//ai
             }
+        }
+        function dw() {
+            lvl.style.color = "white";
+            setTimeout(db, 300);
+        }
+        function db() {
+            lvl.style.color = "black";
+            setTimeout(dwd, 300);
+        }
+        function dwd() {
+            lvl.style.color = "white";
+            setTimeout(dbd, 300);
+        }
+        function dbd() {
+            lvl.style.color = "black";
+            setTimeout(fnl, 1000);
+        }
+        function fnl() {
+            lvl.innerText = `Level ${ln}`;
+            setTimeout(game, 1000);
         }
         function check() {
             if (a[ci - 1] !== c[ci - 1]) {
@@ -168,19 +191,19 @@
             } else {
                 if (ci === ln) {
                     lvl.innerText = `Level ${ln} Complete`;
-                    strt.innerText = "next";
                     ln++;
                     a.length = 0;
                     ai = 0;
                     c.length = 0;
                     ci = 0;
+                    setTimeout(dw, 300);
                 }
             }
         }
         strt.addEventListener('click', function () {
-            lvl.style.color = "black";
-            lvl.innerText = `Level ${ln}`;
-            game();
+            if(lvl.innerText==="GAME OVER!"||lvl.innerText==="Click Start to continue"){
+                game();
+            }
         });
 
         g.addEventListener('click', function () {
@@ -210,6 +233,20 @@
                 check();
             }
         });
+
+        function robot(){
+            for(let i=0;i<ln;i++){
+                if(a[i]===0){
+                    g.click();
+                }else if(a[i]===1){
+                    r.click();
+                }else if(a[i]===2){
+                    y.click();
+                }else if(a[i]===3){
+                    b.click();
+                }
+            }
+        }
 
     </script>
 </body>

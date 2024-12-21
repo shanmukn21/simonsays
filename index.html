@@ -14,7 +14,7 @@
         }
 
         body {
-            height: 80vh;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,6 +27,7 @@
             min-height: 302px;
             max-width: 302px;
             max-height: 302px;
+            border-radius: 10%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -116,18 +117,11 @@
         let r = document.getElementById('red');
         let y = document.getElementById('yellow');
         let b = document.getElementById('blue');
-        let ln = 1, gn = 0, a = [], ai = 0, c = [], ci = 0;
+        let ln = 1, gn = 0, a = [], ai = 0, c = [], ci = 0, fclr = [g, r, y, b], rclr = ['green', 'red', 'yellow', 'blue'];
         function blink() {
-            if (gn === 0) {
-                g.style.backgroundColor = "white";
-            } else if (gn === 1) {
-                r.style.backgroundColor = "white";
-            } else if (gn === 2) {
-                y.style.backgroundColor = "white";
-            } else if (gn === 3) {
-                b.style.backgroundColor = "white";
-            }
-            setTimeout(reset, 300);
+            fclr[gn].style.backgroundColor = "white";
+            smn.style.color = rclr[gn];
+            setTimeout(crst, 300);
         }
         function game() {
             lvl.style.color = "black";
@@ -136,27 +130,19 @@
             a[ai++] = gn;
             setTimeout(blink, 300);
         }
-        function reset() {
-            if (gn === 0) {
-                g.style.backgroundColor = "green";
-                smn.style.color = "green";
-            } else if (gn === 1) {
-                r.style.backgroundColor = "red";
-                smn.style.color = "red";
-            } else if (gn === 2) {
-                y.style.backgroundColor = "yellow";
-                smn.style.color = "yellow";
-            } else if (gn === 3) {
-                b.style.backgroundColor = "blue";
-                smn.style.color = "blue";
-            }
+        function crst() {
+            fclr[gn].style.backgroundColor = rclr[gn];
             if (ai < ln) {
                 setTimeout(game, 300);
             } else {
                 smn.style.color = "white";
-                //console.log(a);//cheatcode
-                //robot();//ai
             }
+        }
+        function reset() {
+            a.length = 0;
+            ai = 0;
+            c.length = 0;
+            ci = 0;
         }
         function dw() {
             lvl.style.color = "white";
@@ -180,72 +166,33 @@
         }
         function check() {
             if (a[ci - 1] !== c[ci - 1]) {
-                lvl.innerText = "GAME OVER!";
+                lvl.innerText = `GAME OVER! Your Score: ${ln - 1}`;
                 strt.innerText = "start";
                 lvl.style.color = "red";
                 ln = 1;
-                a.length = 0;
-                ai = 0;
-                c.length = 0;
-                ci = 0;
+                reset();
             } else {
                 if (ci === ln) {
                     lvl.innerText = `Level ${ln} Complete`;
                     ln++;
-                    a.length = 0;
-                    ai = 0;
-                    c.length = 0;
-                    ci = 0;
+                    reset();
                     setTimeout(dw, 300);
                 }
             }
         }
         strt.addEventListener('click', function () {
-            if(lvl.innerText==="GAME OVER!"||lvl.innerText==="Click Start to continue"){
+            if (lvl.innerText[0] !== "L") {
                 game();
             }
         });
 
-        g.addEventListener('click', function () {
-            if (smn.style.color === "white") {
-                c[ci++] = 0;
-                check();
-            }
-        });
-
-        r.addEventListener('click', function () {
-            if (smn.style.color === "white") {
-                c[ci++] = 1;
-                check();
-            }
-        });
-
-        y.addEventListener('click', function () {
-            if (smn.style.color === "white") {
-                c[ci++] = 2;
-                check();
-            }
-        });
-
-        b.addEventListener('click', function () {
-            if (smn.style.color === "white") {
-                c[ci++] = 3;
-                check();
-            }
-        });
-
-        function robot(){
-            for(let i=0;i<ln;i++){
-                if(a[i]===0){
-                    g.click();
-                }else if(a[i]===1){
-                    r.click();
-                }else if(a[i]===2){
-                    y.click();
-                }else if(a[i]===3){
-                    b.click();
+        for (let i = 0; i < 4; i++) {
+            fclr[i].addEventListener('click', function () {
+                if (smn.style.color === "white" && lvl.innerText[0] !== "G"&& lvl.innerText[lvl.innerText.length-1] !== "e") {
+                    c[ci++] = i;
+                    check();
                 }
-            }
+            });
         }
 
     </script>

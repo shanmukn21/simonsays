@@ -118,12 +118,12 @@
         let y = document.getElementById('yellow');
         let b = document.getElementById('blue');
         let ln = 1, gn = 0, a = [], ai = 0, c = [], ci = 0, fclr = [g, r, y, b], rclr = ['green', 'red', 'yellow', 'blue'], cp = 0;
-        
+
         function flash() {
             fclr[gn].style.backgroundColor = "white";
             setTimeout(crst, 300);
         }
-        
+
         function game() {
             lvl.style.color = "black";
             lvl.innerText = `Level ${ln}`;
@@ -131,7 +131,7 @@
             a[ai++] = gn;
             setTimeout(flash, 300);
         }
-        
+
         function crst() {
             fclr[gn].style.backgroundColor = rclr[gn];
             if (ai < ln) {
@@ -149,27 +149,6 @@
             cp = 0;
         }
 
-        function dw() {
-            lvl.style.color = "white";
-            setTimeout(db, 300);
-        }
-        function db() {
-            lvl.style.color = "black";
-            setTimeout(dwd, 300);
-        }
-        function dwd() {
-            lvl.style.color = "white";
-            setTimeout(dbd, 300);
-        }
-        function dbd() {
-            lvl.style.color = "black";
-            setTimeout(fnl, 1000);
-        }
-        function fnl() {
-            lvl.innerText = `Level ${ln}`;
-            setTimeout(game, 1000);
-        }
-        
         function check() {
             if (a[ci - 1] !== c[ci - 1]) {
                 lvl.innerText = `GAME OVER! Your Score: ${ln - 1}`;
@@ -181,11 +160,14 @@
                     lvl.innerText = `Level ${ln} Complete`;
                     ln++;
                     reset();
-                    setTimeout(dw, 300);
+                    const blinkw = setInterval(() => { lvl.style.color = "white"; }, 250);
+                    const blinkb = setInterval(() => { lvl.style.color = "black"; }, 500);
+                    setTimeout(() => { clearInterval(blinkw);clearInterval(blinkb); }, 1500);
+                    setTimeout(game, 2800);
                 }
             }
         }
-        
+
         strt.addEventListener('click', function () {
             if (lvl.innerText[0] !== "L") {
                 game();
